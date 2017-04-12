@@ -15,6 +15,7 @@
                 <div class="col-md-4">圣晶石剩余量：<span id="saint_quartz"></span></div>
                 <div class="col-md-2"><button id="btn-buy-518" class="btn btn-default">氪一单</button></div>
                 <div class="col-md-2"><button id="btn-buy-5180" class="btn btn-default">氪十单</button></div>
+                <div class="col-md-4">人民币消耗量：<span id="rmb_cost"></span></div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -32,23 +33,23 @@
                 出货历史：<span id="summon_counter"></span>
             </div>
 
-            <div class="row">SSR 从者</div>
-            <div class="row" id="servant-ssr-list">
+            <div class="row">SSR从者<span id="p_servant_ssr"></span></div>
+            <div class="row" id="servant_ssr_list">
                 
             </div>
 
-            <div class="row">SSR 礼装</div>
-            <div class="row" id="craft-essence-ssr-list">
+            <div class="row">SSR礼装<span id="p_craft_essence_ssr"></span></div>
+            <div class="row" id="craft_essence_ssr_list">
                 
             </div>
 
-            <div class="row">SR 从者</div>
-            <div class="row" id="servant-sr-list">
+            <div class="row">SR从者<span id="p_servant_sr"></span></div>
+            <div class="row" id="servant_sr_list">
                 
             </div>
             
-            <div class="row">SR 礼装</div>
-            <div class="row" id="craft-essence-sr-list">
+            <div class="row">SR礼装<span id="p_craft_essence_sr"></span></div>
+            <div class="row" id="craft_essence_sr_list">
                 
             </div>
 
@@ -65,13 +66,34 @@
         <script type="text/javascript" src="js/drawing.js"></script>
 
         <script type="text/javascript">
+            function updateProbability() {
+                var rate;
+
+                rate = 100 * $('#servant_ssr_list').children().length / window.summonCounter;
+                $('span#p_servant_ssr').text("（出货率：" + rate + "%）");
+
+                rate = 100 * $('#craft_essence_ssr_list').children().length / window.summonCounter;
+                $('span#p_craft_essence_ssr').text("（出货率：" + rate + "%）");
+
+                rate = 100 * $('#servant_sr_list').children().length / window.summonCounter;
+                $('span#p_servant_sr').text("（出货率：" + rate + "%）");
+
+                rate = 100 * $('#craft_essence_sr_list').children().length / window.summonCounter;
+                $('span#p_craft_essence_sr').text("（出货率：" + rate + "%）");
+            }
+
             $('#btn-buy-518').click(function() {
                 window.saintQuartz += 140;
                 $('span#saint_quartz').text(window.saintQuartz);
+                window.rmbCost += 518;
+                $('span#rmb_cost').text(window.rmbCost);
             });
+
             $('#btn-buy-5180').click(function() {
                 window.saintQuartz += 1400;
                 $('span#saint_quartz').text(window.saintQuartz);
+                window.rmbCost += 5180;
+                $('span#rmb_cost').text(window.rmbCost);
             });
 
             $('#btn-draw-once').click(function(){
@@ -87,6 +109,8 @@
                 var pool = data.pools.event_20160411;
                 var card = summon(pool);
                 drawOnce(card);
+
+                updateProbability();
             });
 
             $('#btn-draw-timesten').click(function(){
@@ -110,6 +134,8 @@
                     var card = cards[i];
                     drawCombo(card, x, y);
                 }
+
+                updateProbability();
             });
 
             $().ready(function(){
@@ -119,6 +145,8 @@
                 window.imgBg.src = "img/background.png";
                 window.summonCounter = 0;
                 window.saintQuartz = 0;
+                window.rmbCost = 0;
+
                 $('span#saint_quartz').text(window.saintQuartz);
                 imgBg.onload = function() {
                     ctx.drawImage(window.imgBg, 0, 0);

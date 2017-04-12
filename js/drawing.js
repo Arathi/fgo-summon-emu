@@ -2,8 +2,8 @@ function appendToHistory(card, imgsrc)
 {
     if (card.rank >= 4)
     {
-        var selector = "#" + (card.type=="servant" ? "servant" : "craft-essence")
-                        + "-" + (card.rank==4 ? "sr" : "ssr") + "-list";
+        var selector = "#" + (card.type=="servant" ? "servant" : "craft_essence")
+                        + "_" + (card.rank==4 ? "sr" : "ssr") + "_list";
         var content = "<img src='" + imgsrc + "' />";
         $(selector).append(content);
     }
