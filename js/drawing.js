@@ -15,6 +15,14 @@ function drawOnce(card)
     img.onload = function(){
         ctx.drawImage(img, 450, 220);
     };
+
+    if (card.rank >= 4)
+    {
+        var selector = "#" + (card.type=="servant" ? "servant" : "craft-essence");
+                        + "-" + (card.rank==4 ? "sr" : "ssr") + "-list";
+        var content = "<img src='" + img.src + "'>";
+        // $(selector).append(content);
+    }
 }
 
 function drawCombo(card, x, y)
@@ -32,4 +40,12 @@ function drawCombo(card, x, y)
     img.onload = function(){
         ctx.drawImage(img, 80 + x * 142, 140 + y * 172);
     };
+
+    if (card.rank >= 4)
+    {
+        var selector = "#" + (card.type=="servant" ? "servant" : "craft-essence");
+                        + "-" + (card.rank==4 ? "sr" : "ssr") + "-list";
+        var content = "<img src='" + img.src + "'>";
+        // $(selector).append(content);
+    }
 }
