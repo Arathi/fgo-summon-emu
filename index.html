@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>FGO抽卡模拟器</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"><b>FGO抽卡模拟器</b></div>
+            </div>
+            <div class="row" style="display: none">
+                <div class="col-md-4">圣晶石剩余量：</div>
+                <div class="col-md-2"><a id="btn-buy-518" href="#" class="btn btn-default">氪一单</a></div>
+                <div class="col-md-2"><a id="btn-buy-5180" href="#" class="btn btn-default">氪十单</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <canvas id="cards-canvas" width="1016" height="574">
+                        当前浏览器不支持&lt;canvas&gt;标签
+                    </canvas>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3"><a id="btn-draw-once" href="#" class="btn btn-default">单抽</a></div>
+                <div class="col-md-3"><a id="btn-draw-timesten" href="#" class="btn btn-default">十连</a></div>
+            </div>
+            <div class="row">
+                出货历史：
+            </div>
+            <div class="row">
+                SSR 从者
+            </div>
+            <div class="row">
+                SSR 礼装
+            </div>
+            <div class="row">
+                SR 从者
+            </div>
+            <div class="row">
+                SR 礼装
+            </div>
+            <div class="row">
+                <img id="background" src="img/background.png" style="display:none"/>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/core.js"></script>
+        <script type="text/javascript" src="js/drawing.js"></script>
+
+        <script type="text/javascript">
+            $('#btn-draw-once').click(function(){
+                var pool = data.pools.event_20160411;
+                var card = summon(pool);
+                drawOnce(card);
+            });
+
+            $('#btn-draw-timesten').click(function(){
+                var pool = data.pools.event_20160411;
+                var cards = summon10combo(pool);
+
+                for (var i=0; i<cards.length; i++)
+                {
+                    var x = Math.floor(i % 6);
+                    var y = Math.floor(i / 6);
+                    if (y == 1) x += 1;
+                    var card = cards[i];
+                    drawCombo(card, x, y);
+                }
+            });
+
+            $().ready(function(){
+                var c = $("canvas#cards-canvas")[0];
+                var ctx = c.getContext("2d");
+                var imgBg = $('img#background')[0];
+                ctx.drawImage(imgBg, 0, 0);
+            });
+        </script>
+    </body>
+</html>
