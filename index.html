@@ -11,10 +11,10 @@
             <div class="row">
                 <div class="col-md-12"><b>FGO抽卡模拟器</b></div>
             </div>
-            <div class="row" style="display: none">
-                <div class="col-md-4">圣晶石剩余量：</div>
-                <div class="col-md-2"><a id="btn-buy-518" href="#" class="btn btn-default">氪一单</a></div>
-                <div class="col-md-2"><a id="btn-buy-5180" href="#" class="btn btn-default">氪十单</a></div>
+            <div class="row">
+                <div class="col-md-4">圣晶石剩余量：<span id="saint_quartz"></span></div>
+                <div class="col-md-2"><button id="btn-buy-518" class="btn btn-default">氪一单</button></div>
+                <div class="col-md-2"><button id="btn-buy-5180" class="btn btn-default">氪十单</button></div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -25,11 +25,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3"></div>
-                <div class="col-md-3"><a id="btn-draw-once" href="#" class="btn btn-default">单抽</a></div>
-                <div class="col-md-3"><a id="btn-draw-timesten" href="#" class="btn btn-default">十连</a></div>
+                <div class="col-md-3"><button id="btn-draw-once" class="btn btn-default">召唤一次</button></div>
+                <div class="col-md-3"><button id="btn-draw-timesten" class="btn btn-default">召唤十次</button></div>
             </div>
             <div class="row">
-                出货历史：
+                出货历史：<span id="summon_counter"></span>
             </div>
 
             <div class="row">SSR 从者</div>
@@ -65,13 +65,40 @@
         <script type="text/javascript" src="js/drawing.js"></script>
 
         <script type="text/javascript">
+            $('#btn-buy-518').click(function() {
+                window.saintQuartz += 140;
+                $('span#saint_quartz').text(window.saintQuartz);
+            });
+            $('#btn-buy-5180').click(function() {
+                window.saintQuartz += 1400;
+                $('span#saint_quartz').text(window.saintQuartz);
+            });
+
             $('#btn-draw-once').click(function(){
+                if (window.saintQuartz < 3) {
+                    alert("圣晶石不足！");
+                    return;
+                }
+                window.saintQuartz -= 3;
+                $('span#saint_quartz').text(window.saintQuartz);
+                window.summonCounter += 1;
+                $('span#summon_counter').text(window.summonCounter);
+
                 var pool = data.pools.event_20160411;
                 var card = summon(pool);
                 drawOnce(card);
             });
 
             $('#btn-draw-timesten').click(function(){
+                if (window.saintQuartz < 30) {
+                    alert("圣晶石不足！");
+                    return;
+                }
+                window.saintQuartz -= 30;
+                $('span#saint_quartz').text(window.saintQuartz);
+                window.summonCounter += 10;
+                $('span#summon_counter').text(window.summonCounter);
+
                 var pool = data.pools.event_20160411;
                 var cards = summon10combo(pool);
 
@@ -90,6 +117,9 @@
                 var ctx = c.getContext("2d");
                 window.imgBg = new Image();
                 window.imgBg.src = "img/background.png";
+                window.summonCounter = 0;
+                window.saintQuartz = 0;
+                $('span#saint_quartz').text(window.saintQuartz);
                 imgBg.onload = function() {
                     ctx.drawImage(window.imgBg, 0, 0);
                 }
