@@ -1,4 +1,4 @@
-var data = {
+﻿var data = {
     "pools": {
         "event_20160411": {
             "name": "达芬奇与七位赝品英灵",
@@ -6,7 +6,7 @@ var data = {
             "servant_ssr_up": [
                 {
                     "id": "106",
-                    "rate": 0.65
+                    "rate": 0.68
                 },
             ],
 
