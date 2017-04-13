@@ -106,8 +106,7 @@
                 window.summonCounter += 1;
                 $('span#summon_counter').text(window.summonCounter);
 
-                var pool = data.pools.event_20160411;
-                var card = summon(pool);
+                var card = summon(window.pool);
                 drawOnce(card);
 
                 updateProbability();
@@ -123,8 +122,7 @@
                 window.summonCounter += 10;
                 $('span#summon_counter').text(window.summonCounter);
 
-                var pool = data.pools.event_20160411;
-                var cards = summon10combo(pool);
+                var cards = summon10combo(window.pool);
 
                 for (var i=0; i<cards.length; i++)
                 {
@@ -146,6 +144,7 @@
                 window.summonCounter = 0;
                 window.saintQuartz = 0;
                 window.rmbCost = 0;
+                window.pool = data.pools.event_20160411;
 
                 $('span#saint_quartz').text(window.saintQuartz);
                 imgBg.onload = function() {
