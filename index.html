@@ -54,7 +54,11 @@
             </div>
 
             <div class="row"  align="center">
-                <div class="col-md-4">圣晶石剩余量：<span id="saint_quartz"></span></div>
+                <div class="col-md-4">
+                    圣晶石剩余量：
+                    <img src="img/ui/saint_quartz.png" width="32" height="32" />
+                    <span id="saint_quartz"></span>
+                </div>
                 <div class="col-md-2"><button id="btn-buy-518" class="btn btn-default">氪一单</button></div>
                 <div class="col-md-2"><button id="btn-buy-5180" class="btn btn-default">氪十单</button></div>
                 <div class="col-md-4">人民币消耗量：<span id="rmb_cost"></span></div>
@@ -69,10 +73,10 @@
             </div>
 
             <div class="row"  align="center">
-                <div class="col-md-3"><button id="btn-" class="btn btn-default">召唤一次</button></div>
-                <div class="col-md-3"><button id="btn-draw-once" class="btn btn-default">召唤一次</button></div>
-                <div class="col-md-3"><button id="btn-draw-timesten" class="btn btn-default">召唤十次</button></div>
-                <div class="col-md-3"><button id="btn-history-clear" class="btn btn-warning">清空历史纪录</button></div>
+                <!-- <div class="col-md-3"><button id="btn-" class="btn btn-default">召唤一次</button></div> -->
+                <div class="col-md-4"><button id="btn-draw-once" class="btn btn-default">召唤一次</button></div>
+                <div class="col-md-4"><button id="btn-draw-timesten" class="btn btn-default">召唤十次</button></div>
+                <div class="col-md-4"><button id="btn-history-clear" class="btn btn-warning">清空历史纪录</button></div>
             </div>
 
             <div class="panel panel-info">
@@ -222,7 +226,7 @@
                 window.summonCounter = 0;
                 window.saintQuartz = 0;
                 window.rmbCost = 0;
-                window.pool = data.pools.event_summer_1;
+                window.pool = data.pools.event_20160411;
                 $('img#banner').attr('src', window.pool.banner);
 
                 $('span#saint_quartz').text(window.saintQuartz);

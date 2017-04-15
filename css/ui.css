@@ -11,4 +11,7 @@
     background-size: contain;
 }
 
-
+.container .row {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
