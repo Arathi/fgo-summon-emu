@@ -1,7 +1,7 @@
-﻿var data = {
+﻿window.data = {
     "pools": {
         "event_20160411": {
-            "name": "达芬奇与七位赝品英灵",
+            "name": "贞德[Alter]推荐召唤",
             "banner": "img/banners/event-20160411.png",
             "enable": 1,
 

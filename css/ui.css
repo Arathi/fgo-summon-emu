@@ -1,12 +1,12 @@
 .swiper-button-prev {
-    width: 40px;
-    height: 190px;
+    width: 50px;
+    height: 290px;
     background: url(../img/ui/left_btn.png) no-repeat;
     background-size: contain;
 }
 .swiper-button-next {
-    width: 40px;
-    height: 190px;
+    width: 51px;
+    height: 290px;
     background: url(../img/ui/right_btn.png) no-repeat;
     background-size: contain;
 }

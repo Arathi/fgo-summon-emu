@@ -13,7 +13,6 @@ function drawOnce(card)
 {
     var c = $("canvas#cards-canvas")[0];
     var ctx = c.getContext("2d");
-    // var imgBg = $('img#background')[0];
     ctx.drawImage(imgBg, 0, 0);
 
     var img = new Image();
