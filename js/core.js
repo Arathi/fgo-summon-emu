@@ -228,6 +228,18 @@ function statTypeOfCards(cards, type)
     return counter;
 }
 
+function shuffle(cards)
+{
+    var shuffled = new Array();
+    while(cards.length > 0)
+    {
+        var index = parseInt(Math.random() * cards.length);
+        shuffled.push(cards[index]);
+        cards.splice(index, 1);
+    }
+    return shuffled;
+}
+
 function summon10combo(pool)
 {
     var cards = new Array();
@@ -263,5 +275,5 @@ function summon10combo(pool)
         cards.push(card);
     }
 
-    return cards;
+    return shuffle(cards);
 }
