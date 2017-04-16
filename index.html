@@ -55,14 +55,19 @@
 
             <div class="row"  align="center">
                 <div class="col-md-4">
-                    圣晶石剩余量：
-                    <img src="img/ui/saint_quartz.png" width="32" height="32" />
+                    <img id="ico_saint_quartz" src="img/ui/saint_quartz.png" width="32" height="32" />
                     <span id="saint_quartz"></span>
+                    <div id="tooltip" class="tip"></div>
+                    <div id="saint_quartz_box" style="display: none">
+                        免费圣晶石：<span id="saint_quartz_free"></span><br/>
+                        付费圣晶石：<span id="saint_quartz_premium"></span>
+                    </div>
                 </div>
                 <div class="col-md-2"><button id="btn-buy-518" class="btn btn-default">氪一单</button></div>
                 <div class="col-md-2"><button id="btn-buy-5180" class="btn btn-default">氪十单</button></div>
                 <div class="col-md-4">人民币消耗量：<span id="rmb_cost"></span></div>
             </div>
+
 
             <div class="row"  align="center">
                 <div class="col-lg-12" align="center">
@@ -85,7 +90,7 @@
 
             <div class="panel panel-info">
                 <div class="panel-body">
-                    出货历史：<span id="summon_counter"></span>
+                    <span id="tag-history">出货历史：<span id="summon_counter"></span></span>
                     <button id="btn-history-clear" class="btn btn-warning pull-right">清空历史纪录</button>
                 </div>
             </div>
@@ -153,27 +158,64 @@
                 }
             }
 
+            function updateSaintQuartz() {
+                $('span#saint_quartz_free').text(window.window.saintQuartzFree);
+                $('span#saint_quartz_premium').text(window.window.saintQuartzPremium);
+                $('span#saint_quartz').text(window.window.saintQuartzFree + window.window.saintQuartzPremium);
+            }
+
+            function costSaintQuartz(amount) {
+                if (window.window.saintQuartzFree + window.window.saintQuartzPremium < amount)
+                    return false;
+                var freeSaintQuartzLeft = window.window.saintQuartzFree - amount;
+                if (freeSaintQuartzLeft >= 0)
+                {
+                    window.window.saintQuartzFree = freeSaintQuartzLeft;
+                }
+                else
+                {
+                    window.window.saintQuartzFree = 0;
+                    window.window.saintQuartzPremium += freeSaintQuartzLeft;
+                }
+                updateSaintQuartz();
+                return true;
+            }
+
             $('#btn-buy-518').click(function() {
-                window.saintQuartz += 140;
-                $('span#saint_quartz').text(window.saintQuartz);
+                // window.saintQuartz += 140;
+                window.saintQuartzFree += 54;
+                window.saintQuartzPremium += 86;
+                // $('span#saint_quartz').text(window.saintQuartz);
+                updateSaintQuartz();
+
                 window.rmbCost += 518;
                 $('span#rmb_cost').text(window.rmbCost);
             });
 
             $('#btn-buy-5180').click(function() {
-                window.saintQuartz += 1400;
-                $('span#saint_quartz').text(window.saintQuartz);
+                // window.saintQuartz += 1400;
+                window.saintQuartzFree += 540;
+                window.saintQuartzPremium += 860;
+                // $('span#saint_quartz').text(window.saintQuartz);
+                updateSaintQuartz();
+
                 window.rmbCost += 5180;
                 $('span#rmb_cost').text(window.rmbCost);
             });
 
             $('#btn-draw-once').click(function(){
-                if (window.saintQuartz < 3) {
+                // if (window.saintQuartz < 3) {
+                //     alert("圣晶石不足！");
+                //     return;
+                // }
+                // window.saintQuartz -= 3;
+                //$('span#saint_quartz').text(window.saintQuartz);
+                var result = costSaintQuartz(3);
+                if (!result) {
                     alert("圣晶石不足！");
                     return;
                 }
-                window.saintQuartz -= 3;
-                $('span#saint_quartz').text(window.saintQuartz);
+
                 window.summonCounter += 1;
                 $('span#summon_counter').text(window.summonCounter);
 
@@ -184,12 +226,18 @@
             });
 
             $('#btn-draw-timesten').click(function(){
-                if (window.saintQuartz < 30) {
+                // if (window.saintQuartz < 30) {
+                //     alert("圣晶石不足！");
+                //     return;
+                // }
+                // window.saintQuartz -= 30;
+                // $('span#saint_quartz').text(window.saintQuartz);
+                var result = costSaintQuartz(30);
+                if (!result) {
                     alert("圣晶石不足！");
                     return;
                 }
-                window.saintQuartz -= 30;
-                $('span#saint_quartz').text(window.saintQuartz);
+
                 window.summonCounter += 10;
                 $('span#summon_counter').text(window.summonCounter);
 
@@ -218,6 +266,18 @@
                 updateProbability();
             });
 
+            //hover某处显示悬浮框
+            $("#ico_saint_quartz").mouseover(function(e){
+                $('#saint_quartz_free').text(window.saintQuartzFree);
+                $('#saint_quartz_premium').text(window.saintQuartzPremium);
+                $('#saint_quartz_box').css("display", "block");
+            });
+
+            //鼠标离开表格隐藏悬浮框
+            $("#ico_saint_quartz").mouseout(function(){
+                $('#saint_quartz_box').css("display", "none");
+            });
+
             $('#carousel-switch').on('slid.bs.carousel', function (event) {
                 var poolName = $('div.item.active').data('pool');
                 window.pool = data.pools[poolName];
@@ -229,12 +289,16 @@
                 window.imgBg = new Image();
                 window.imgBg.src = "img/background.png";
                 window.summonCounter = 0;
-                window.saintQuartz = 0;
+                // window.saintQuartz = 0
+                window.saintQuartzFree = 0;
+                window.saintQuartzPremium = 0;
                 window.rmbCost = 0;
                 window.pool = data.pools.event_20160411;
                 $('img#banner').attr('src', window.pool.banner);
 
-                $('span#saint_quartz').text(window.saintQuartz);
+                // $('span#saint_quartz').text(window.saintQuartz);
+                updateSaintQuartz();
+
                 imgBg.onload = function() {
                     ctx.drawImage(window.imgBg, 0, 0);
                 }

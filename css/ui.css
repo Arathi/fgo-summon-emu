@@ -27,3 +27,14 @@ button#btn-draw-timesten {
     width: 194px;
     height: 74px;
 }
+
+div#saint_quartz_box {
+    display: block;
+    position: absolute;
+    width: 150px;
+    height: 44px;
+    left: 208px;
+    top: -5px;
+    background-color: #999;
+    border: 1px solid #233;
+}

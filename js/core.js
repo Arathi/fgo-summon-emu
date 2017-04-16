@@ -277,3 +277,15 @@ function summon10combo(pool)
 
     return shuffle(cards);
 }
+
+//获取鼠标坐标
+function mousePosition(ev){ 
+    ev = ev || window.event; 
+    if(ev.pageX || ev.pageY){ 
+        return {x:ev.pageX, y:ev.pageY}; 
+    } 
+    return { 
+        x:ev.clientX + document.body.scrollLeft - document.body.clientLeft, 
+        y:ev.clientY + document.body.scrollTop - document.body.clientTop 
+    }; 
+}
