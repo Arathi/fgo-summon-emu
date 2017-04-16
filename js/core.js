@@ -1,3 +1,31 @@
+var useRandomOrgApi = false;
+
+// 获取0-1之间的实数
+function getRandom(useRandomOrg)
+{
+    var randReal = 0;
+    if (useRandomOrg)
+    {
+        var randInteger = 0;
+        var randMax = 999999999;
+        $.ajax({
+            type: "GET",
+            url: "https://www.random.org/integers/?num=1&min=0&max=999999999&col=1&base=10&format=plain&rnd=new",
+            dataType: "text",
+            async: false,
+            success: function(data, textStatus){
+                randInteger = parseInt(data);
+            }
+        });
+        randReal = randInteger / randMax;
+    }
+    else
+    {
+        randReal = Math.random();
+    }
+    return randReal;
+}
+
 function summonFromPool(upcards, nmcards, type, rank, rand)
 {
     var card = new Object();
@@ -7,7 +35,7 @@ function summonFromPool(upcards, nmcards, type, rank, rand)
 
     if (rand < 0)
     {
-        rand = Math.random();
+        rand = getRandom(useRandomOrgApi);
     }
 
     var counter = 0;
@@ -24,7 +52,7 @@ function summonFromPool(upcards, nmcards, type, rank, rand)
 
     if (card.id == null)
     {
-        card.id = nmcards[Math.floor(Math.random()*nmcards.length)];
+        card.id = nmcards[Math.floor(getRandom(useRandomOrgApi)*nmcards.length)];
     }
 
     return card;
@@ -32,7 +60,7 @@ function summonFromPool(upcards, nmcards, type, rank, rand)
 
 function summon(pool)
 {
-    var rand = Math.random();
+    var rand = getRandom(useRandomOrgApi);
     var card = new Object();
     if (rand >= 0.99)
     {
@@ -88,7 +116,7 @@ function summon(pool)
 // 抽取保底金卡
 function summmonGolden(pool)
 {
-    var rand = Math.random();
+    var rand = getRandom(useRandomOrgApi);
     var card = new Object();
 
     if (rand >= 0.95)
@@ -128,9 +156,9 @@ function summmonGolden(pool)
 }
 
 // 保底从者
-function summmonservants(pool)
+function summmonServants(pool)
 {
-    var rand = Math.random();
+    var rand = getRandom(useRandomOrgApi);
 
     var card = new Object();
 
@@ -226,7 +254,7 @@ function summon10combo(pool)
     // 如果前9张卡全是礼装，第10张卡从servant卡池中抽
     if (statTypeOfCards(cards, 'craft_essence') == 9)
     {
-        var card = summmonservants(pool);
+        var card = summmonServants(pool);
         cards.push(card);
     }
     else

@@ -15,3 +15,15 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+button#btn-draw-once {
+    background: url('../img/ui/btn-summon-1.png');
+    width: 194px;
+    height: 74px;
+}
+
+button#btn-draw-timesten {
+    background: url('../img/ui/btn-summon-10.png');
+    width: 194px;
+    height: 74px;
+}
